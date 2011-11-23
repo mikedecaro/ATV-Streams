@@ -1,0 +1,9 @@
+Package: com.decaro.streams
+Name: Streams
+Depends: beigelist, mobilesubstrate, org.tomcool.smframework(>=0.5.6)
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Streaming video for the AppleTV
+Maintainer: Mike DeCaro
+Author: Mike DeCaro
+Section: Multimedia
