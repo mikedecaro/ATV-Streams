@@ -1,15 +1,14 @@
 //
-//  RdioCollection.h
-//  Rdio
+//  EngadgetMenu.h
+//  Engadget
 //
 #import <SMFramework/SMFramework.h>
 
 @interface EngadgetMenu : SMFMediaMenuController <NSXMLParserDelegate> {
     NSMutableArray *dataList;
     NSMutableData *receivedData;
-    bool sourceFound;
-    bool titleFound;
-    NSString *lastTitle;
+    NSMutableDictionary *currentVideo;
+    NSString *currentTag;
 }
 
 @end

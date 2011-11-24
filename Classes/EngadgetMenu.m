@@ -1,5 +1,5 @@
 //
-//  EngadgetCollection.m
+//  EngadgetMenu.m
 //  Engadget
 //
 
@@ -13,9 +13,17 @@
 -(id)previewControlForItem:(long)item
 {
     
-    SMFBaseAsset *a = [[SMFBaseAsset alloc] init];
-    [a setCoverArt:[BRImage imageWithPath:[[NSBundle bundleForClass:[EngadgetMenu class]] pathForResource:@"stream" ofType:@"png"]]];
+    NSDictionary *itemData = [dataList objectAtIndex:item];
+    NSString *thumbSource = [itemData objectForKey:@"thumbnail_url"];
+    
+    NSURL *thumbURL = [NSURL URLWithString:thumbSource];
+    BRImage *thumbImg = [BRImage imageWithURL:thumbURL];
         
+    SMFBaseAsset *a = [[SMFBaseAsset alloc] init];
+    //[a setCoverArt:[BRImage imageWithPath:[[NSBundle bundleForClass:[EngadgetMenu class]] pathForResource:@"stream" ofType:@"png"]]];
+    [a setCoverArt:thumbImg];
+    [a setSummary:[itemData objectForKey:@"description"]];
+    
     [a setTitle:[self titleForRow:item]]; 
     SMFMediaPreview *p = [[SMFMediaPreview alloc] init];
     [p setAsset:a];
@@ -70,8 +78,8 @@
     if(dataList && selected < [dataList count])
     {
         
-        NSArray *itemData = [dataList objectAtIndex:selected];
-        NSString *itemSource = [itemData objectAtIndex:1];
+        NSDictionary *itemData = [dataList objectAtIndex:selected];
+        NSString *itemSource = [itemData objectForKey:@"html5_video_source"];
         
         NSURL *mediaURL = [NSURL URLWithString:itemSource];
         
@@ -102,9 +110,9 @@
         
         [_items removeAllObjects];
             
-        for(NSArray *itemData in dataList) {
+        for(NSDictionary *itemData in dataList) {
             
-            NSString *title = [itemData objectAtIndex:0];
+            NSString *title = [itemData objectForKey:@"title"];
             
             SMFMenuItem *result = [SMFMenuItem menuItem];
             [result setTitle:title];
@@ -169,6 +177,11 @@
     [parser parse];
     
     [parser release];
+    
+    if(currentVideo != nil){
+        [currentVideo release];
+        currentVideo = nil;
+    }
             
     [self loadMenu];
     
@@ -182,31 +195,34 @@
 //SHOULD CREATE MEDIA ASSETS AND ADD THEM TO DATA LIST
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *) attributeDict{	
-    NSLog(@"found this element: %@", elementName);
+    NSLog(@"Start element: %@", elementName);
     
-    if([elementName isEqualToString:@"html5_video_source"]){
-        sourceFound = YES;
-    } else {
-        sourceFound = NO;
+    currentTag = [NSString stringWithString:elementName];
+    
+    if([elementName isEqualToString:@"video"]){
+        if(currentVideo != nil){
+            [currentVideo release];
+        }
+        
+        currentVideo = [[NSMutableDictionary alloc] init];
     }
-    
-    if([elementName isEqualToString:@"title"]){
-        titleFound = YES;
-    } else {
-        titleFound = NO;
-    }
-    
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{ 
+    NSLog(@"End element: %@", elementName);
+    
+    if(currentVideo != nil && [elementName isEqualToString:@"video"]){
+        [dataList addObject:currentVideo];
+        [currentVideo release];
+        currentVideo = nil;
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-    if(sourceFound){
-        NSArray *data = [[NSArray alloc] initWithObjects:lastTitle, string, nil];
-        [dataList addObject:data];
-    } else if(titleFound){
-        lastTitle = [NSString stringWithString:string];
+    NSLog(@"String data: %@", string);
+    
+    if(currentVideo != nil){
+        [currentVideo setObject:string forKey:currentTag];
     }
 }
 
