@@ -50,6 +50,7 @@
     if (self) {
         [[self list] setDatasource:self];
         [self setListTitle:@"Engadget"];
+        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[RevisionMenu class]] pathForResource:@"Engadget" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
         
         dataList = [[NSMutableArray alloc] init];
         
