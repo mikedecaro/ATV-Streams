@@ -6,7 +6,6 @@
 #import "RevisionMenu.h"
 #include "JSON/NSDictionary_JSONExtensions.h"
 #import <Foundation/Foundation.h>
-#import <Foundation/NSXMLParser.h>
 #import <SMFramework/SMFMovieAsset.h>
 
 @implementation RevisionMenu
@@ -53,7 +52,8 @@
         [self setListTitle:@"Revision3"];
         [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[RevisionMenu class]] pathForResource:@"Revision3" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
          
-        dataList = [[NSMutableArray alloc] init];
+//        //Needed? If so, release it before setting a new one after parsing the JSON
+//        dataList = [[NSMutableArray alloc] init];
         
         // Create the request.
         NSURLRequest *theRequest=[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://revision3.com/api/getEpisodes.json?api_key=0b1faede6785d04b78735b139ddf2910f34ad601&grouping=latest&limit=25&offset=0"]
@@ -171,7 +171,7 @@
     // receivedData is declared as a method instance elsewhere
     NSLog(@"Succeeded! Received %d bytes of data",[receivedData length]);
     NSString* jsonStr = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-        
+           
     //Parse the JSON
     dataList = [self parseJsonString:jsonStr];
     
