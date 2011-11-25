@@ -1,18 +1,21 @@
 //
-//  engadget.mm
-//  Engadget
+//  streams.mm
+//  Streams
 //
 
 //#import "rdio.h"
 #import <Foundation/Foundation.h>
 #import "CPlusFunctions.mm"
 #import "EngadgetMenu.h"
+#import "RevisionMenu.h"
 
 #define kSMFApplianceOrderKey   @"FRAppliancePreferedOrderValue"
 
 #define ENGADGET_ID @"engadgetId"
+#define REVISION_ID @"revisionId"
 
 #define ENGADGET_CAT [BRApplianceCategory categoryWithName:@"Engadget" identifier:ENGADGET_ID preferredOrder:1]
+#define REVISION_CAT [BRApplianceCategory categoryWithName:@"Revision3" identifier:REVISION_ID preferredOrder:2]
 
 @interface BRTopShelfView (specialAdditions)
 
@@ -89,7 +92,7 @@
 -(void) loadMenu
 {
     
-    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT ,nil];        
+    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, nil];        
     
 }
 
@@ -122,6 +125,8 @@
 	
 	if([identifier isEqualToString:ENGADGET_ID]) {
         menuController = [[[EngadgetMenu alloc] init] autorelease];
+    } else if([identifier isEqualToString:REVISION_ID]) {
+        menuController = [[[RevisionMenu alloc] init] autorelease];
     }
     
     return menuController;
