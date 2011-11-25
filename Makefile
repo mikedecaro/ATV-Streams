@@ -4,7 +4,7 @@ FW_DEVICE_IP=apple-tv.local
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = Streams
-Streams_FILES = Classes/streams.mm Classes/CPlusFunctions.mm Classes/EngadgetMenu.m Classes/RevisionMenu.m
+Streams_FILES = Classes/streams.mm Classes/CPlusFunctions.mm Classes/EngadgetMenu.m Classes/RevisionMenu.m Classes/CbsNewsMenu.m Classes/CbsNewsShowMenu.m Classes/HowStuffWorksMenu.m
 
 Streams_FILES += Classes/JSON/CDataScanner.m
 Streams_FILES += Classes/JSON/CDataScanner_Extensions.m
