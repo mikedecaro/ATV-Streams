@@ -61,9 +61,9 @@
 - (BRTopShelfView *)topShelfView {
 	
 	BRTopShelfView *topShelf = [[BRTopShelfView alloc] init];
-	BRImageControl *imageControl = [topShelf productImage];
-	BRImage *gpImage = [BRImage imageWithPath:[[NSBundle bundleForClass:[EngadgetMenu class]] pathForResource:@"stream" ofType:@"png"]];
-	[imageControl setImage:gpImage];
+//	BRImageControl *imageControl = [topShelf productImage];
+//	BRImage *gpImage = [BRImage imageWithPath:[[NSBundle bundleForClass:[EngadgetMenu class]] pathForResource:@"stream" ofType:@"png"]];
+//	[imageControl setImage:gpImage];
 	
 	return topShelf;
 }
@@ -101,7 +101,8 @@
 -(void) loadMenu
 {
     
-    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, CBSNEWS_CAT, HOWSTUFFWORKS_CAT, CRACKLE_CAT, nil];        
+//    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, CBSNEWS_CAT, HOWSTUFFWORKS_CAT, CRACKLE_CAT, nil];
+    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, CBSNEWS_CAT, CRACKLE_CAT, nil];
     
 }
 
