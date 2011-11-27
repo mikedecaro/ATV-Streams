@@ -7,11 +7,10 @@
 //
 #import <SMFramework/SMFramework.h>
 
-@interface RevisionMenu : SMFMediaMenuController <NSXMLParserDelegate> {
+@interface RevisionMenu : SMFMediaMenuController {
     NSArray *dataList;
-    NSMutableData *receivedData;
 }
 
-- (NSArray*)parseJsonString:(NSString *)string;
+- (void)loadMenu;
 
 @end
