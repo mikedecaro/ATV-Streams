@@ -4,11 +4,10 @@
 //
 #import <SMFramework/SMFramework.h>
 
-@interface EngadgetMenu : SMFMediaMenuController <NSXMLParserDelegate> {
-    NSMutableArray *dataList;
-    NSMutableData *receivedData;
-    NSMutableDictionary *currentVideo;
-    NSString *currentTag;
+@interface EngadgetMenu : SMFMediaMenuController {
+    NSArray *dataList;
 }
+
+- (void)loadMenu;
 
 @end
