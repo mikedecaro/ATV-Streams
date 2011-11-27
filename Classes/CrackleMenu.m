@@ -13,16 +13,10 @@
 -(id)previewControlForItem:(long)item
 {
     
-    //    NSDictionary *itemData = [dataList objectAtIndex:item];
-    //    NSDictionary *thumbData = [itemData objectForKey:@"images"];
-    //    NSString *thumbSource = [thumbData objectForKey:@"large"];
-    
-    //    NSURL *thumbURL = [NSURL URLWithString:thumbSource];
-    //    BRImage *thumbImg = [BRImage imageWithURL:thumbURL];
+    BRImage *thumbImg = [BRImage imageWithPath:[[NSBundle bundleForClass:[CrackleMenu class]] pathForResource:@"Crackle" ofType:@"png"]];
     
     SMFBaseAsset *a = [[SMFBaseAsset alloc] init];
-    //    [a setCoverArt:thumbImg];
-    //    [a setSummary:[itemData objectForKey:@"summary"]];
+    [a setCoverArt:thumbImg];
     
     [a setTitle:[self titleForRow:item]]; 
     SMFMediaPreview *p = [[SMFMediaPreview alloc] init];
@@ -55,7 +49,7 @@
     if (self) {
         [[self list] setDatasource:self];
         [self setListTitle:@"Crackle"];
-        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CrackleMenu class]] pathForResource:@"Crackle" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
+        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CrackleMenu class]] pathForResource:@"Crackle_Icon" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
         
         menuType = mType;
         

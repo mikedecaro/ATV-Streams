@@ -7,10 +7,8 @@
 //
 #import <SMFramework/SMFramework.h>
 
-@interface CrackleMenu : SMFMediaMenuController <NSXMLParserDelegate> {
+@interface CrackleMenu : SMFMediaMenuController {
     NSArray *dataList;
-    NSMutableData *receivedData;
-    
     int menuType;
 }
 

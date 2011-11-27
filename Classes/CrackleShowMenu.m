@@ -53,7 +53,7 @@
         
         [[self list] setDatasource:self];
         [self setListTitle:categoryName];
-        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CrackleShowMenu class]] pathForResource:@"Crackle" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
+        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CrackleShowMenu class]] pathForResource:@"Crackle_Icon" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
         
         //        //Needed? If so, release it before setting a new one after parsing the JSON
         //        dataList = [[NSMutableArray alloc] init];
