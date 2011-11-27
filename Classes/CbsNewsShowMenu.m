@@ -49,7 +49,7 @@
     if (self) {
         [[self list] setDatasource:self];
         [self setListTitle:showName];
-        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CbsNewsShowMenu class]] pathForResource:@"CBSNews" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
+        [self setListIcon:[BRImage imageWithPath:[[NSBundle bundleForClass:[CbsNewsShowMenu class]] pathForResource:@"CBSNews_Icon" ofType:@"png"]] horizontalOffset:0.0f kerningFactor:0.0f];
         
 //        //Needed? If so, release it before setting a new one after parsing the JSON
 //        dataList = [[NSMutableArray alloc] init];

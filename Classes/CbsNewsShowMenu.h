@@ -7,7 +7,7 @@
 //
 #import <SMFramework/SMFramework.h>
 
-@interface CbsNewsShowMenu : SMFMediaMenuController <NSXMLParserDelegate> {
+@interface CbsNewsShowMenu : SMFMediaMenuController {
     NSArray *dataList;
     NSMutableData *receivedData;
 }
