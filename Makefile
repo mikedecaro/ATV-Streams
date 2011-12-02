@@ -1,5 +1,5 @@
 GO_EASY_ON_ME=1
-SDKVERSION=5.0
+SDKVERSION=4.3
 FW_DEVICE_IP=apple-tv.local
 include $(THEOS)/makefiles/common.mk
 
@@ -10,7 +10,6 @@ Streams_FILES += Classes/EngadgetMenu.m Classes/EngadgetShowMenu.m
 Streams_FILES += Classes/RevisionMenu.m Classes/RevisionShowMenu.m Classes/RevisionEpisodeMenu.m
 Streams_FILES += Classes/CbsNewsMenu.m Classes/CbsNewsShowMenu.m
 Streams_FILES += Classes/CrackleMenu.m Classes/CrackleShowMenu.m Classes/CrackleEpisodeMenu.m
-Streams_FILES += Classes/HowStuffWorksMenu.m
 
 Streams_FILES += Classes/JSON/CDataScanner.m
 Streams_FILES += Classes/JSON/CDataScanner_Extensions.m

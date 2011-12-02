@@ -9,7 +9,6 @@
 #import "EngadgetMenu.h"
 #import "RevisionMenu.h"
 #import "CbsNewsMenu.h"
-#import "HowStuffWorksMenu.h"
 #import "CrackleMenu.h"
 
 #define kSMFApplianceOrderKey   @"FRAppliancePreferedOrderValue"
@@ -17,14 +16,12 @@
 #define ENGADGET_ID @"engadgetId"
 #define REVISION_ID @"revisionId"
 #define CBSNEWS_ID @"cbsNewsId"
-#define HOWSTUFFWORKS_ID @"howStuffWorksId"
 #define CRACKLE_ID @"crackleId"
 
 #define ENGADGET_CAT [BRApplianceCategory categoryWithName:@"Engadget" identifier:ENGADGET_ID preferredOrder:1]
 #define REVISION_CAT [BRApplianceCategory categoryWithName:@"Revision3" identifier:REVISION_ID preferredOrder:2]
 #define CBSNEWS_CAT [BRApplianceCategory categoryWithName:@"CBS News" identifier:CBSNEWS_ID preferredOrder:3]
-#define HOWSTUFFWORKS_CAT [BRApplianceCategory categoryWithName:@"HowStuffWorks" identifier:HOWSTUFFWORKS_ID preferredOrder:4]
-#define CRACKLE_CAT [BRApplianceCategory categoryWithName:@"Crackle" identifier:CRACKLE_ID preferredOrder:5]
+#define CRACKLE_CAT [BRApplianceCategory categoryWithName:@"Crackle" identifier:CRACKLE_ID preferredOrder:4]
 
 @interface BRTopShelfView (specialAdditions)
 
@@ -101,7 +98,6 @@
 -(void) loadMenu
 {
     
-//    _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, CBSNEWS_CAT, HOWSTUFFWORKS_CAT, CRACKLE_CAT, nil];
     _applianceCategories = [[NSArray alloc] initWithObjects:ENGADGET_CAT, REVISION_CAT, CBSNEWS_CAT, CRACKLE_CAT, nil];
     
 }
@@ -139,8 +135,6 @@
         menuController = [[[RevisionMenu alloc] init] autorelease];
     } else if([identifier isEqualToString:CBSNEWS_ID]) {
         menuController = [[[CbsNewsMenu alloc] init] autorelease];
-    } else if([identifier isEqualToString:HOWSTUFFWORKS_ID]) {
-        menuController = [[[HowStuffWorksMenu alloc] init] autorelease];
     } else if([identifier isEqualToString:CRACKLE_ID]) {
         menuController = [[[CrackleMenu alloc] init] autorelease];
     }
