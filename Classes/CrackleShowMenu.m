@@ -60,6 +60,7 @@
                 
         NSString *jsonUrl;
         if(menuType == 1){
+            //Movie
             
             if([categoryName isEqualToString:@"Featured"]){
                 jsonUrl = @"http://api.crackle.com/Service.svc/featured/movies/all/US/50?format=json";
@@ -72,6 +73,7 @@
             }            
             
         } else if (menuType == 2){
+            //TV Show
             
             if([categoryName isEqualToString:@"Featured"]){
                 jsonUrl = @"http://api.crackle.com/Service.svc/featured/television/all/US/50?format=json";
@@ -114,9 +116,10 @@
         NSDictionary *tempDict = [dataList objectAtIndex:selected];
         NSString *mediaId = [tempDict objectForKey:@"ID"];
         
-        if(menuType == 1){
-            //Movie
-                                    
+        NSString *itemType = [tempDict objectForKey:@"ItemType"];
+        if([itemType isEqualToString:@"Media"]){
+            //Media item, play it
+            
             NSString *jsonUrl = [NSString stringWithFormat:@"http://api.crackle.com/Service.svc/details/media/%@/US?format=json", mediaId];
         
             // Create the request.
@@ -136,7 +139,7 @@
                 NSDictionary *theDictionary = [NSDictionary dictionaryWithJSONString:jsonStr error:&theError];
                 
                 NSArray *urlList = [theDictionary objectForKey:@"MediaURLs"];
-                NSDictionary *mediaData = [urlList objectAtIndex:2];
+                NSDictionary *mediaData = [urlList objectAtIndex:2]; //480p_1mbps.mp4
                 NSString *itemSource = [mediaData objectForKey:@"Path"];
                 
                         
@@ -160,11 +163,11 @@
             } else {
                 // Inform the user that the connection failed.
             }
-            
-        } else if(menuType == 2){
-            //TV Show
-            
-            CrackleEpisodeMenu *menu = [[CrackleEpisodeMenu alloc] initWithShowId:mediaId];
+
+        } else {
+            //It's a channel
+           
+            CrackleEpisodeMenu *menu = [[CrackleEpisodeMenu alloc] initWithMenuType:menuType showId:mediaId];
             [[self stack]pushController:[menu autorelease]];
             
         }
@@ -184,10 +187,13 @@
         for(NSDictionary *itemData in dataList) {
             
             NSString *title = [itemData objectForKey:@"Title"];
+            NSNumber *clipsOnly = [itemData objectForKey:@"ClipsOnly"];
             
-            SMFMenuItem *result = [SMFMenuItem menuItem];
-            [result setTitle:title];
-            [_items addObject:result];
+            if(![clipsOnly boolValue]){
+                SMFMenuItem *result = [SMFMenuItem menuItem];
+                [result setTitle:title];
+                [_items addObject:result];
+            }
             
         }
         

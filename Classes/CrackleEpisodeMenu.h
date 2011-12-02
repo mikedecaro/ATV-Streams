@@ -12,9 +12,10 @@
     NSMutableData *receivedData;
     
     NSString *showId;
+    int menuType;
 }
 
-- (id)initWithShowId:(NSString *)sId;
+- (id)initWithMenuType:(int)mType showId:(NSString *)sId;
 - (NSArray*)parseJsonString:(NSString *)string;
 
 @end

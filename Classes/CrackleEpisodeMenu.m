@@ -43,10 +43,11 @@
     return it;
 }
 
-- (id)initWithShowId:(NSString *)sId
+- (id)initWithMenuType:(int)mType showId:(NSString *)sId
 {
     self=[super init];
     if (self) {
+        menuType = mType;
         showId = [NSString stringWithString:sId];
         
         [[self list] setDatasource:self];
@@ -217,20 +218,53 @@
 
 - (NSArray*)parseJsonString:(NSString *)string
 {
+    //TV = check folder list name for Full &&/|| Episodes
+    //MOvie = check playlist name for Full Length
+    
     NSMutableArray *tempList = [[NSMutableArray alloc] init];
     
     NSError *theError = NULL;
     NSDictionary *theDictionary = [NSDictionary dictionaryWithJSONString:string error:&theError];
     
-    NSArray *folderList = [theDictionary objectForKey:@"FolderList"];
-    for(NSDictionary *tempFolder in folderList) {
-        NSArray *playlistList = [tempFolder objectForKey:@"PlaylistList"];
-        for(NSDictionary *tempPlaylist in playlistList) {
-            NSArray *mediaList = [tempPlaylist objectForKey:@"MediaList"];
-            [tempList addObjectsFromArray:mediaList];
+    if(menuType == 1){
+    
+        NSArray *folderList = [theDictionary objectForKey:@"FolderList"];
+        for(NSDictionary *tempFolder in folderList) {
+            NSArray *playlistList = [tempFolder objectForKey:@"PlaylistList"];
+            for(NSDictionary *tempPlaylist in playlistList) {
+                
+                NSString *playlistName = [tempFolder objectForKey:@"Name"];
+                if([playlistName isEqualToString:@"Full Length"]){
+                    
+                    NSArray *mediaList = [tempPlaylist objectForKey:@"MediaList"];
+                    [tempList addObjectsFromArray:mediaList];
+                    
+                }
+                
+            }
         }
-    }
         
+    } else if(menuType == 2){
+        
+        NSArray *folderList = [theDictionary objectForKey:@"FolderList"];
+        for(NSDictionary *tempFolder in folderList) {
+            
+            NSString *folderName = [tempFolder objectForKey:@"Name"];
+            NSRange range = [folderName rangeOfString:@"Episodes" options:NSCaseInsensitiveSearch];
+            if(range.location != NSNotFound) {
+            
+                NSArray *playlistList = [tempFolder objectForKey:@"PlaylistList"];
+                for(NSDictionary *tempPlaylist in playlistList) {
+                    NSArray *mediaList = [tempPlaylist objectForKey:@"MediaList"];
+                    [tempList addObjectsFromArray:mediaList];
+                }
+                
+            }
+            
+        }
+        
+    }
+            
     NSArray *array = [NSArray arrayWithArray:tempList];
     [tempList release];
     
